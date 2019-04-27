@@ -638,6 +638,6 @@ Game.World.prototype = {
 
     this.player.updateAnimation();
 
-  }
+}}
 
 };
