@@ -202,9 +202,9 @@ Game.Object = function(x, y, width, height) {
 
 };
 Game.Object.prototype = {
-
+  
   constructor:Game.Object,
-
+  
   /* Now does rectangular collision detection. */
   collideObject:function(object) {
 
@@ -277,6 +277,13 @@ Game.MovingObject.prototype = {
 Object.assign(Game.MovingObject.prototype, Game.Object.prototype);
 Game.MovingObject.prototype.constructor = Game.MovingObject;
 
+Game.deadCarrot = function(carr){
+	this.zoneID = this.World.zone_id;
+	this.pos = [(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size];
+}
+// Game.deadCarrot.prototype = {};
+	
+	
 /* The carrot class extends Game.Object and Game.Animation. */
 Game.Carrot = function(x, y) {
 
@@ -357,6 +364,7 @@ Game.Player = function(x, y) {
   this.velocity_y  = 0;
 
 };
+
 Game.Player.prototype = {
 
   frame_sets: {
@@ -481,6 +489,7 @@ Game.World = function(friction = 0.85, gravity = 2) {
 
   this.carrots      = [];// the array of carrots in this zone;
   this.carrot_count = 0;// the number of carrots you have.
+  this.eatenCarrots = [];
   this.doors        = [];
   this.door         = undefined;
 
@@ -535,7 +544,15 @@ Game.World.prototype = {
     for (let index = zone.carrots.length - 1; index > -1; -- index) {
 
       let carrot = zone.carrots[index];
-      this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
+	  let boolean fresh = true;
+	  for(let i = 0; i< this.eatenCarrots.length; i++){
+		  if(this.World.zone_id == eatenCarrots[i].zoneID || carrot == eatenCarrots[i].pos) {
+			  fresh = false;
+			  break;
+		  }
+	  }
+		  
+	  if(fresh) this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
 
     }
 
@@ -590,7 +607,9 @@ Game.World.prototype = {
 
       if (carrot.collideObject(this.player)) {
 
-        this.carrots.splice(this.carrots.indexOf(carrot), 1);
+        let carrotDead = this.carrots.splice(this.carrots.indexOf(carrot), 1);
+		
+		this.eatenCarrots.splice(0,0,new Game.deadCarrot(carrotDead));
         this.carrot_count ++;
 
       }
