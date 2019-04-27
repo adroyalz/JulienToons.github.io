@@ -18,7 +18,6 @@ const Game = function() {
 
     this.world.update();
 
-  };
 
 };
 Game.prototype = { constructor : Game };
@@ -544,7 +543,7 @@ Game.World.prototype = {
     for (let index = zone.carrots.length - 1; index > -1; -- index) {
 
       let carrot = zone.carrots[index];
-	  console.log("done");
+	  console.log("TEST TEST");
 	  let fresh = true;
 	  for(let i = 0; i< this.eatenCarrots.length; i++){
 		  if(this.World.zone_id == eatenCarrots[i].zoneID || carrot == eatenCarrots[i].pos) {
