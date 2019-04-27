@@ -1,5 +1,7 @@
 {
-
+  "carrots":[],
+  "grass":[],
+  
   "doors" : [
 
     { "x":-16, "y":80, "width":16, "height":64,

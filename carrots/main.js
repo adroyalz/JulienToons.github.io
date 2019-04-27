@@ -1,19 +1,11 @@
 
-/* Changes:
-  1. The update function now check on every frame for game.world.door. If a door
-     is selected, the game engine stops and the door's level is loaded.
-  2. When the game is first initialized at the bottom of this file, game.world is
-     loaded using it's default values defined in its constructor.
-  3. The AssetsManager class has been changed to load both images and json.
-*/
-
 window.addEventListener("load", function(event) {
 
   "use strict";
 
   //// CONSTANTS ////
 
-  const ZONE_PREFIX = "levels/zone";
+  const ZONE_PREFIX = "07/zone";
   const ZONE_SUFFIX = ".json";
 
       /////////////////
@@ -30,25 +22,21 @@ window.addEventListener("load", function(event) {
 
     constructor: Game.AssetsManager,
 
-    /* Requests a file and hands the callback function the contents of that file
-    parsed by JSON.parse. */
     requestJSON:function(url, callback) {
 
       let request = new XMLHttpRequest();
-      request.addEventListener("load", function(event) {   //   NEVER GETS CALLED!
- // console.log(this.responseText);
+
+      request.addEventListener("load", function(event) {
+
         callback(JSON.parse(this.responseText));
 
       }, { once:true });
+
       request.open("GET", url);
-	  	// console.log("HI");
       request.send();
-	  	// console.log("HII");
 
     },
 
-    /* Creates a new Image and sets its src attribute to the specified url. When
-    the image loads, the callback function is called. */
     requestImage:function(url, callback) {
 
       let image = new Image();
@@ -80,19 +68,55 @@ window.addEventListener("load", function(event) {
     display.resize(document.documentElement.clientWidth, document.documentElement.clientHeight, game.world.height / game.world.width);
     display.render();
 
+    var rectangle = display.context.canvas.getBoundingClientRect();
+
+    p.style.left = rectangle.left + "px";
+    p.style.top  = rectangle.top + "px";
+    p.style.fontSize = game.world.tile_set.tile_size * rectangle.height / game.world.height + "px";
+
   };
 
   var render = function() {
 
+    var frame = undefined;
+
     display.drawMap   (assets_manager.tile_set_image,
     game.world.tile_set.columns, game.world.graphical_map, game.world.columns,  game.world.tile_set.tile_size);
 
-    let frame = game.world.tile_set.frames[game.world.player.frame_value];
+    for (let index = game.world.carrots.length - 1; index > -1; -- index) {
+
+      let carrot = game.world.carrots[index];
+
+      frame = game.world.tile_set.frames[carrot.frame_value];
+
+      display.drawObject(assets_manager.tile_set_image,
+      frame.x, frame.y,
+      carrot.x + Math.floor(carrot.width * 0.5 - frame.width * 0.5) + frame.offset_x,
+      carrot.y + frame.offset_y, frame.width, frame.height);
+
+    }
+
+    frame = game.world.tile_set.frames[game.world.player.frame_value];
 
     display.drawObject(assets_manager.tile_set_image,
     frame.x, frame.y,
     game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5) + frame.offset_x,
     game.world.player.y + frame.offset_y, frame.width, frame.height);
+
+    for (let index = game.world.grass.length - 1; index > -1; -- index) {
+
+      let grass = game.world.grass[index];
+
+      frame = game.world.tile_set.frames[grass.frame_value];
+
+      display.drawObject(assets_manager.tile_set_image,
+      frame.x, frame.y,
+      grass.x + frame.offset_x,
+      grass.y + frame.offset_y, frame.width, frame.height);
+
+    }
+
+    p.innerHTML = "Carrots: " + game.world.carrot_count;
 
     display.render();
 
@@ -106,17 +130,11 @@ window.addEventListener("load", function(event) {
 
     game.update();
 
-    /* This if statement checks to see if a door has been selected by the player.
-    If the player collides with a door, he selects it. The engine is then stopped
-    and the assets_manager loads the door's level. */
     if (game.world.door) {
 
       engine.stop();
 
-      /* Here I'm requesting the JSON file to use to populate the game.world object. */
-	  //console.log("1");
       assets_manager.requestJSON(ZONE_PREFIX + game.world.door.destination_zone + ZONE_SUFFIX, (zone) => {
-	  //console.log("2");
 
         game.world.setup(zone);
 
@@ -140,6 +158,11 @@ window.addEventListener("load", function(event) {
   var game           = new Game();
   var engine         = new Engine(1000/30, render, update);
 
+  var p              = document.createElement("p");
+  p.setAttribute("style", "color:#c07000; font-size:2.0em; position:fixed;");
+  p.innerHTML = "Carrots: 0";
+  document.body.appendChild(p);
+
       ////////////////////
     //// INITIALIZE ////
   ////////////////////
@@ -147,7 +170,7 @@ window.addEventListener("load", function(event) {
   display.buffer.canvas.height = game.world.height;
   display.buffer.canvas.width  = game.world.width;
   display.buffer.imageSmoothingEnabled = false;
-//BUG NEXT LINE
+
   assets_manager.requestJSON(ZONE_PREFIX + game.world.zone_id + ZONE_SUFFIX, (zone) => {
 
     game.world.setup(zone);
