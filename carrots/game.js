@@ -278,7 +278,7 @@ Object.assign(Game.MovingObject.prototype, Game.Object.prototype);
 Game.MovingObject.prototype.constructor = Game.MovingObject;
 
 Game.deadCarrot = function(carr){
-	this.zoneID = this.World.zone_id;
+	this.zoneID = number.from( this.World.zone_id );
 	this.pos = [(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size];
 }
 // Game.deadCarrot.prototype = {};
@@ -608,7 +608,7 @@ Game.World.prototype = {
 
       if (carrot.collideObject(this.player)) {
 
-        let carrotDead = this.carrots.splice(this.carrots.indexOf(carrot), 1);
+        let carrotDead = Array.from(this.carrots.splice(this.carrots.indexOf(carrot), 1));
 		
 		this.eatenCarrots.splice(0,0,new Game.deadCarrot(carrotDead));
         this.carrot_count ++;
