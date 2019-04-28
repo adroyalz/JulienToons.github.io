@@ -17,7 +17,7 @@ const Game = function() {
   this.update   = function() {
 
     this.world.update();
-
+  };
 
 };
 Game.prototype = { constructor : Game };
