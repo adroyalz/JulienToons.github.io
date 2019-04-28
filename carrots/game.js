@@ -275,13 +275,13 @@ Game.MovingObject.prototype = {
 };
 Object.assign(Game.MovingObject.prototype, Game.Object.prototype);
 Game.MovingObject.prototype.constructor = Game.MovingObject;
-
+/* //                                                                                     ******************************
 Game.deadCarrot = function(carr){
 	this.zoneID = number.from( this.World.zone_id );
 	this.pos = [(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size];
 };
 // Game.deadCarrot.prototype = {};
-	
+	*/
 	
 /* The carrot class extends Game.Object and Game.Animation. */
 Game.Carrot = function(x, y) {
@@ -541,7 +541,7 @@ Game.World.prototype = {
     this.zone_id            = zone.id;
 
     for (let index = zone.carrots.length - 1; index > -1; -- index) {
-
+/*//                                                                                     ******************************
       let carrot = zone.carrots[index];
 	  console.log("TEST TEST");
 	  let fresh = true;
@@ -552,7 +552,7 @@ Game.World.prototype = {
 		  }
 	  }
 		  
-	  if(fresh) this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
+	  if(fresh) */this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
 
     }
 
@@ -606,10 +606,11 @@ Game.World.prototype = {
       carrot.animate();
 
       if (carrot.collideObject(this.player)) {
-
-        let carrotDead = Array.from(this.carrots.splice(this.carrots.indexOf(carrot), 1));
-		
+/* //                                                                                     ******************************
+        let carrotDead = */Array.from(this.carrots.splice(this.carrots.indexOf(carrot), 1));
+		/*
 		this.eatenCarrots.splice(0,0,new Game.deadCarrot(carrotDead));
+		*/
         this.carrot_count ++;
 
       }
