@@ -277,11 +277,6 @@ Object.assign(Game.MovingObject.prototype, Game.Object.prototype);
 Game.MovingObject.prototype.constructor = Game.MovingObject;
 
 
-Game.deadCarrot = function(carr){
-	this.zoneID = /*int.from( */this.World.zone_id/* )*/;
-	this.pos = [(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size];
-};  
-// Game.deadCarrot.prototype = {};
 	
 	
 /* The carrot class extends Game.Object and Game.Animation. */
@@ -641,7 +636,12 @@ Game.World.prototype = {
 
     this.player.updateAnimation();
 
-}
-
-
+  }
 };
+
+Game.deadCarrot = function(carr){
+	this.zoneID = /*int.from( */this.World.zone_id/* )*/;
+	this.pos = [(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size];
+};  
+// Game.deadCarrot.prototype = {};
+
