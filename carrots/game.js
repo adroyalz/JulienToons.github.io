@@ -539,7 +539,7 @@ Game.World.prototype = {
     for (let index = zone.carrots.length - 1; index > -1; -- index) {
       let carrot = zone.carrots[index];
 	  
-	  console.log("ZONE ID: "+ this.zone_id);
+	  console.log("2nd ZONE ID: "+ this.zone_id);
 
 	  let fresh = true;
 	  for(let i = 0; i< this.eatenCarrots.length; i++){
@@ -604,9 +604,9 @@ Game.World.prototype = {
 
       if (carrot.collideObject(this.player)) {
 
-	  let carrotDead = Array.from(this.carrots.splice(this.carrots.indexOf(carrot), 1));
+	  let carr = Array.from(this.carrots.splice(this.carrots.indexOf(carrot), 1));
 		
-		this.eatenCarrots.splice(0,0,new Game.deadCarrot(carrotDead, this.zone_id));
+		this.eatenCarrots.splice(0,0,new Game.deadCarrot([(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size], this.zone_id));
 		
         this.carrot_count ++;
 
@@ -639,9 +639,9 @@ Game.World.prototype = {
   }
 };
 
-Game.deadCarrot = function(carr, z_id){
+Game.deadCarrot = function(position, z_id){
 	this.zoneID = z_id/*int.from( this.World.zone_id )*/;
-	this.pos = [(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size];
+	this.pos = position;
 };  
 // Game.deadCarrot.prototype = {};
 
