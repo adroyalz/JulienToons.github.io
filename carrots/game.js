@@ -278,9 +278,9 @@ Game.MovingObject.prototype.constructor = Game.MovingObject;
 
 
 Game.deadCarrot = function(carr){
-	this.zoneID = number.from( this.World.zone_id );
+	this.zoneID = /*int.from( */this.World.zone_id/* )*/;
 	this.pos = [(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size];
-};
+};  
 // Game.deadCarrot.prototype = {};
 	
 	
