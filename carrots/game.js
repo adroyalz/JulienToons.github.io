@@ -1,15 +1,4 @@
 
-/* Changes since part 6:
-  1. Added the carrots array to the zone file.
-  2. Moved the collideObject method out of Game.Door and into Game.Object.
-  3. Renamed collideObject to collideObjectCenter and made a new collideObject function for rectangular collision detection.
-  4. Added the Game.Carrot class and Game.Grass class.
-  5. Added frames for carrots and grass to the tile_set.
-  6. Made a slight change to the Game.Animator constructor.
-  7. Added carrot_count to count carrots.
-  8. Added the grass array to the zone file. Also reflected in Game.World
-*/
-
 const Game = function() {
 
   this.world    = new Game.World();
@@ -484,7 +473,9 @@ Game.World = function(friction = 0.85, gravity = 2) {
 
   this.carrots      = [];// the array of carrots in this zone;
   this.carrot_count = 0;// the number of carrots you have.
-  this.eatenCarrots = [];
+  
+  //this.eatenCarrots = []; *************************************** CARROT EATEN UPDATE ***************************************
+
   this.doors        = [];
   this.door         = undefined;
 
@@ -526,7 +517,7 @@ Game.World.prototype = {
   },
 
   setup:function(zone) {
-
+	console.log("v2.01/nUpdate: Reboot to without eatenCarrots");
     this.carrots            = new Array();
     this.doors              = new Array();
     this.grass              = new Array();
@@ -538,7 +529,8 @@ Game.World.prototype = {
 
     for (let index = zone.carrots.length - 1; index > -1; -- index) {
       let carrot = zone.carrots[index];
-	  
+	  /*                      *************************************** CARROT EATEN UPDATE ***************************************
+
 	  console.log("3rd ZONE ID: "+ this.zone_id);
 
 	  let fresh = true;
@@ -549,7 +541,7 @@ Game.World.prototype = {
 		  }
 	  }
 		  
-	  if(fresh) this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
+	  if(fresh) */this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
 
     }
 
@@ -603,10 +595,11 @@ Game.World.prototype = {
       carrot.animate();
 
       if (carrot.collideObject(this.player)) {
-
-	  let carr = Array.from(this.carrots.splice(this.carrots.indexOf(carrot), 1));
+		  /*                      *************************************** CARROT EATEN UPDATE ***************************************
+		console.log("carrot eaten");
+	  let carr = Array.from(*/this.carrots.splice(this.carrots.indexOf(carrot), 1); // );          ****************
 		
-		this.eatenCarrots.splice(0,0,new Game.deadCarrot([(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size], this.zone_id));
+		//this.eatenCarrots.splice(0,0,new Game.deadCarrot([(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size], this.zone_id));
 		
         this.carrot_count ++;
 
@@ -638,10 +631,11 @@ Game.World.prototype = {
 
   }
 };
+/*                      *************************************** CARROT EATEN UPDATE ***************************************
 
 Game.deadCarrot = function(position, z_id){
-	this.zoneID = z_id/*int.from( this.World.zone_id )*/;
+	this.zoneID = z_id;
 	this.pos = position;
-};  
+};  */
 // Game.deadCarrot.prototype = {};
 
