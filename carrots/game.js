@@ -539,11 +539,11 @@ Game.World.prototype = {
     for (let index = zone.carrots.length - 1; index > -1; -- index) {
       let carrot = zone.carrots[index];
 	  
-	  console.log("2nd ZONE ID: "+ this.zone_id);
+	  console.log("3rd ZONE ID: "+ this.zone_id);
 
 	  let fresh = true;
 	  for(let i = 0; i< this.eatenCarrots.length; i++){
-		  if(this.zone_id == eatenCarrots[i].zoneID || carrot == eatenCarrots[i].pos) {
+		  if(this.zone_id == this.eatenCarrots[i].zoneID || carrot == this.eatenCarrots[i].pos) {
 			  fresh = false;
 			  break;
 		  }
