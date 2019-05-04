@@ -517,7 +517,7 @@ Game.World.prototype = {
   },
 
   setup:function(zone) {
-	console.log("v2.01/nUpdate: Reboot to without eatenCarrots");
+	console.log("v2.04/nUpdate: carrot eaten debug");
     this.carrots            = new Array();
     this.doors              = new Array();
     this.grass              = new Array();
@@ -596,13 +596,12 @@ Game.World.prototype = {
 
       if (carrot.collideObject(this.player)) {
 		  /*                      *************************************** CARROT EATEN UPDATE ***************************************
-		console.log("carrot eaten");
 	  let carr = Array.from(*/this.carrots.splice(this.carrots.indexOf(carrot), 1); // );          ****************
 		
 		//this.eatenCarrots.splice(0,0,new Game.deadCarrot([(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size], this.zone_id));
 		
         this.carrot_count ++;
-
+		console.log("carrot eaten");
       }
 
     }
