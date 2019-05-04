@@ -517,7 +517,7 @@ Game.World.prototype = {
   },
 
   setup:function(zone) {
-	console.log("v2.08/nUpdate: carrot eaten debug");
+	console.log("v2.09/nUpdate: carrot eaten debug");
     this.carrots            = new Array();
     this.doors              = new Array();
     this.grass              = new Array();
@@ -601,7 +601,7 @@ Game.World.prototype = {
 		  //                      *************************************** CARROT EATEN UPDATE ***************************************
 		console.log("carrot eaten");
 		
-		console.log("Apparent Carrots Before: "+ carrots.length);
+		try console.log("Apparent Carrots Before: "+ carrots.length);
 	    let carr = Array.from(this.carrots.splice(this.carrots.indexOf(carrot), 1));
 		console.log("Apparent Carrots After: "+ carrots.length +"/nCarr is " + carr);
 		console.log("Eaten Carrots Before: "+ eatenCarrots.length);
