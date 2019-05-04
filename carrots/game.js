@@ -517,7 +517,7 @@ Game.World.prototype = {
   },
 
   setup:function(zone) {
-	console.log("v2.04/nUpdate: carrot eaten debug");
+	console.log("v2.06/nUpdate: carrot eaten debug");
     this.carrots            = new Array();
     this.doors              = new Array();
     this.grass              = new Array();
