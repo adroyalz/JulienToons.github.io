@@ -474,7 +474,7 @@ Game.World = function(friction = 0.85, gravity = 2) {
   this.carrots      = [];// the array of carrots in this zone;
   this.carrot_count = 0;// the number of carrots you have.
   
-  //this.eatenCarrots = []; *************************************** CARROT EATEN UPDATE ***************************************
+  this.eatenCarrots = []; //*************************************** CARROT EATEN UPDATE ***************************************
 
   this.doors        = [];
   this.door         = undefined;
@@ -529,19 +529,19 @@ Game.World.prototype = {
 
     for (let index = zone.carrots.length - 1; index > -1; -- index) {
       let carrot = zone.carrots[index];
-	  /*                      *************************************** CARROT EATEN UPDATE ***************************************
+	  //                      *************************************** CARROT EATEN UPDATE ***************************************
 
 	  console.log("3rd ZONE ID: "+ this.zone_id);
 
 	  let fresh = true;
 	  for(let i = 0; i< this.eatenCarrots.length; i++){
-		  if(this.zone_id == this.eatenCarrots[i].zoneID || carrot == this.eatenCarrots[i].pos) {
+		  if(this.zone_id == this.eatenCarrots[i].zoneID && carrot == this.eatenCarrots[i].pos) {
 			  fresh = false;
 			  break;
 		  }
 	  }
 		  
-	  if(fresh) */this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
+	  if(fresh) this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
 
     }
 
@@ -595,10 +595,10 @@ Game.World.prototype = {
       carrot.animate();
 
       if (carrot.collideObject(this.player)) {
-		  /*                      *************************************** CARROT EATEN UPDATE ***************************************
-	  let carr = Array.from(*/this.carrots.splice(this.carrots.indexOf(carrot), 1); // );          ****************
+		  //                      *************************************** CARROT EATEN UPDATE ***************************************
+	  let carr = Array.from(this.carrots.splice(this.carrots.indexOf(carrot), 1));
 		
-		//this.eatenCarrots.splice(0,0,new Game.deadCarrot([(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size], this.zone_id));
+		this.eatenCarrots.splice(0,0,new Game.deadCarrot([(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size], this.zone_id));
 		
         this.carrot_count ++;
 		console.log("carrot eaten");
@@ -630,11 +630,11 @@ Game.World.prototype = {
 
   }
 };
-/*                      *************************************** CARROT EATEN UPDATE ***************************************
+//                      *************************************** CARROT EATEN UPDATE ***************************************
 
 Game.deadCarrot = function(position, z_id){
 	this.zoneID = z_id;
 	this.pos = position;
-};  */
+};  
 // Game.deadCarrot.prototype = {};
 
