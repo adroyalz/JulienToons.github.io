@@ -517,7 +517,7 @@ Game.World.prototype = {
   },
 
   setup:function(zone) {
-	console.log("v2.10/nUpdate: carrot eaten debug");
+	console.log("v2.105/nUpdate: carrot eaten debug");
     this.carrots            = new Array();
     this.doors              = new Array();
     this.grass              = new Array();
@@ -531,7 +531,6 @@ Game.World.prototype = {
       let carrot = zone.carrots[index];
 	  //                      *************************************** CARROT EATEN UPDATE ***************************************
 
-	  //console.log("3rd ZONE ID: "+ this.zone_id);
 /*
 	  let fresh = true;
 	  for(let i = 0; i< this.eatenCarrots.length; i++){
@@ -602,13 +601,14 @@ Game.World.prototype = {
 		  //                      *************************************** CARROT EATEN UPDATE ***************************************
 		console.log("carrot eaten");
 		// why is carrot not defined????????????????????????????????????????????????????????????????????????????????????????????????????????
-		// console.log("Apparent Carrots Before: "+ carrots.length); 
+		console.log("Apparent Carrots Before: "+ carrots.length); 
 	    //let carr = Array.from( 
 		this.carrots.splice(this.carrots.indexOf(carrot), 1);  //);
-		//console.log("Apparent Carrots After: "+ carrots.length +"/nCarr is " + carr);
-		//console.log("Eaten Carrots Before: "+ eatenCarrots.length);
+		console.log("Apparent Carrots After: "+ carrots.length);
+		//console.log("Carr is " + carr);
+		console.log("Eaten Carrots Before: "+ eatenCarrots.length);
 		//this.eatenCarrots.splice(0,0,new Game.deadCarrot([(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size], this.zone_id));
-		//console.log("Eaten Carrots After: "+ eatenCarrots.length);
+		console.log("Eaten Carrots After: "+ eatenCarrots.length);
 
         this.carrot_count ++;
       }
