@@ -11,22 +11,27 @@
 #nameText{
 	position: relative;
 	float: left;
-	top: 45%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	top: 30%;
+	left: 10%;
+	/* transform: translate(-50%, -50%); */
 }
+#button{
+	position: relative;
+	float: left;
+	top: 60%;
+	left: 0%;
+	/* transform: translate(0%, -50%); */
+}
+/*
 @font-face { 
 	font-family: "crackman";
 	src: url('fonts\crackman.ttf'); 
 }
-@font-face { 
-	font-family: "vtks";
-	src: url('fonts\vtks morning rain 3D.ttf'); 
-}
+*/
 #myName {
 	color: red;
 	font-size: 5em;
-	font-family: "vtks","crackman", Monospace, "Times New Roman", Times, serif;
+	font-family: Monospace, "Times New Roman", Times, serif;
 	
 	
 }
