@@ -474,7 +474,7 @@ Game.World = function(friction = 0.85, gravity = 2) {
   this.carrots      = [];// the array of carrots in this zone;
   this.carrot_count = 0;// the number of carrots you have.
   
-  this.eatenCarrots = []; //*************************************** CARROT EATEN UPDATE ***************************************
+ // this.eatenCarrots = []; //*************************************** CARROT EATEN UPDATE ***************************************
 
   this.doors        = [];
   this.door         = undefined;
@@ -517,7 +517,7 @@ Game.World.prototype = {
   },
 
   setup:function(zone) {
-	console.log("v2.105/nUpdate: carrot eaten debug");
+	console.log("v2.11/nUpdate: carrot eaten debug");
     this.carrots            = new Array();
     this.doors              = new Array();
     this.grass              = new Array();
@@ -601,14 +601,14 @@ Game.World.prototype = {
 		  //                      *************************************** CARROT EATEN UPDATE ***************************************
 		console.log("carrot eaten");
 		// why is carrot not defined????????????????????????????????????????????????????????????????????????????????????????????????????????
-		console.log(`Apparent Carrots Before: ${carrots.length}`); 
+		//console.log(`Apparent Carrots Before: ${carrots.length}`); 
 	    //let carr = Array.from( 
 		this.carrots.splice(this.carrots.indexOf(carrot), 1);  //);
-		console.log("Apparent Carrots After: "+ carrots.length);
+		//console.log("Apparent Carrots After: "+ carrots.length);
 		//console.log("Carr is " + carr);
-		console.log("Eaten Carrots Before: "+ eatenCarrots.length);
+		//console.log("Eaten Carrots Before: "+ eatenCarrots.length);
 		//this.eatenCarrots.splice(0,0,new Game.deadCarrot([(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size], this.zone_id));
-		console.log("Eaten Carrots After: "+ eatenCarrots.length);
+		//console.log("Eaten Carrots After: "+ eatenCarrots.length);
 
         this.carrot_count ++;
       }
@@ -640,10 +640,10 @@ Game.World.prototype = {
   }
 };
 //                      *************************************** CARROT EATEN UPDATE ***************************************
-
+/*
 Game.deadCarrot = function(position, z_id){
 	this.zoneID = z_id;
 	this.pos = position;
 };  
-// Game.deadCarrot.prototype = {};
+// Game.deadCarrot.prototype = {};*/
 
