@@ -534,7 +534,7 @@ Game.World.prototype = {
 
 	  let fresh = true;
 	  for(let i = 0; i< this.eatenCarrots.length; i++){
-		  console.log("\n" + idex +"." + i + "th carrot refrence:/nThe zone is " + this.zone_id + " and the carrot is " + this.eatenCarrots[i].zoneID);
+		  console.log("\n" + index +"." + i + "th carrot refrence:/nThe zone is " + this.zone_id + " and the carrot is " + this.eatenCarrots[i].zoneID);
 		  console.log("The pos is "+ carrot + " and the eaten is " + this.eatenCarrots[i].pos);
 		  if(this.zone_id == this.eatenCarrots[i].zoneID && carrot == this.eatenCarrots[i].pos) {
 			  console.log("its a match");
