@@ -601,14 +601,13 @@ Game.World.prototype = {
 		  //                      *************************************** CARROT EATEN UPDATE ***************************************
 		console.log("carrot eaten");
 		// why is carrot not defined????????????????????????????????????????????????????????????????????????????????????????????????????????
-		console.log(`Apparent Carrots Before: ${this.carrots.length}`); 
+		//console.log(`Apparent Carrots Before: ${this.carrots.length}`); 
 	    let carr = Array.from( this.carrots.splice(this.carrots.indexOf(carrot), 1));
-		console.log("Apparent Carrots After: "+ this.carrots.length);
-		console.log("Carr is " + carr);
-		console.log("Eaten Carrots Before: "+ this.eatenCarrots.length);
+		//console.log("Apparent Carrots After: "+ this.carrots.length);
+		//console.log("Eaten Carrots Before: "+ this.eatenCarrots.length);
 		this.eatenCarrots.splice(0,0,new Game.deadCarrot([(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size], this.zone_id));
-		console.log("Eaten Carrots After: "+ this.eatenCarrots.length);
-
+		//console.log("Eaten Carrots After: "+ this.eatenCarrots.length);
+		console.log(`Carr's pos is ${carr.base_x}, ${carr.base_y}`);
         this.carrot_count ++;
       }
 
