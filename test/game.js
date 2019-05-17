@@ -517,7 +517,7 @@ Game.World.prototype = {
   },
 
   setup:function(zone) {
-	console.log("v2.122/nUpdate: -");
+	console.log("v2.1225/nUpdate: -");
     this.carrots            = new Array();
     this.doors              = new Array();
     this.grass              = new Array();
@@ -603,7 +603,9 @@ Game.World.prototype = {
 		// why is carrot not defined????????????????????????????????????????????????????????????????????????????????????????????????????????
 		//console.log(`Apparent Carrots Before: ${this.carrots.length}`); 
 		console.log(`carr x would be ${this.carrots[this.carrots.indexOf(carrot)].base_x}`);
-	    let carr =/* Array.from(*/this.carrots.splice(this.carrots.indexOf(carrot), 1);//);
+		
+	    let carr = Object.assign({}, this.carrots.indexOf(carrot));
+		this.carrots.splice(this.carrots.indexOf(carrot), 1);
 		//console.log("Apparent Carrots After: "+ this.carrots.length);
 		//console.log("Eaten Carrots Before: "+ this.eatenCarrots.length);
 		this.eatenCarrots.splice(0,0,new Game.deadCarrot([(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size], this.zone_id));
