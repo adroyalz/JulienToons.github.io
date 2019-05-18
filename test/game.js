@@ -604,7 +604,7 @@ Game.World.prototype = {
 		//console.log(`Apparent Carrots Before: ${this.carrots.length}`); 
 		console.log(`carr x would be ${this.carrots[this.carrots.indexOf(carrot)].base_x}`);
 		
-	    let carr = Object.assign({}, this.carrots.indexOf(carrot));
+	    let carr = Object.assign({}, this.carrots[this.carrots.indexOf(carrot)]);
 		this.carrots.splice(this.carrots.indexOf(carrot), 1);
 		//console.log("Apparent Carrots After: "+ this.carrots.length);
 		//console.log("Eaten Carrots Before: "+ this.eatenCarrots.length);
