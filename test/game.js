@@ -517,7 +517,7 @@ Game.World.prototype = {
   },
 
   setup:function(zone) {
-	console.log("v2.1225/nUpdate: -");
+	console.log("v2.1226/nUpdate: -");
     this.carrots            = new Array();
     this.doors              = new Array();
     this.grass              = new Array();
@@ -532,7 +532,7 @@ Game.World.prototype = {
 	  //                      *************************************** CARROT EATEN UPDATE ***************************************
 
 
-	  let fresh = true;
+	  boolean fresh = true;
 	  for(let i = 0; i< this.eatenCarrots.length; i++){
 		  console.log("\n" + index +"." + i + "th carrot refrence:/nThe zone is " + this.zone_id + " and the carrot is " + this.eatenCarrots[i].zoneID);
 		  console.log("The pos is "+ carrot + " and the eaten is " + this.eatenCarrots[i].pos);
@@ -542,7 +542,7 @@ Game.World.prototype = {
 			  break;
 		  }
 	  }
-		  console.log("Fresh is "+fresh);
+	  console.log("Fresh is "+fresh);
 		  
 	  if(fresh) this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
 
