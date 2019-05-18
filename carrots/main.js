@@ -87,7 +87,7 @@ window.addEventListener("load", function(event) {
 
       let carrot = game.world.carrots[index];
 
-      frame = game.world.tile_set.frames[carrot.frame_value];
+      frame = game.world.tile_set.frames[carrot.frame_index];
 
       display.drawObject(assets_manager.tile_set_image,
       frame.x, frame.y,

@@ -537,7 +537,7 @@ Game.World.prototype = {
 		  //console.log("\n" + index +"." + i + "th carrot refrence:/nThe zone is " + this.zone_id + " and the carrot is " + this.eatenCarrots[i].zoneID);
 		  //console.log("The pos is "+ carrot + " and the eaten is " + this.eatenCarrots[i].pos);
 		  //console.log("relative ids: "+ this.zone_id +"..."+this.eatenCarrots[i].zoneID);
-		 // console.log("pos is "+(carrot[0] == this.eatenCarrots[i].pos[0] && carrot[1] == this.eatenCarrots[i].pos[1]));
+		 // //console.log("pos is "+(carrot[0] == this.eatenCarrots[i].pos[0] && carrot[1] == this.eatenCarrots[i].pos[1]));
 		  //console.log("id is " + (this.zone_id == this.eatenCarrots[i].zoneID));
 		  if(this.zone_id == this.eatenCarrots[i].zoneID && carrot[0] == this.eatenCarrots[i].pos[0] && carrot[1] == this.eatenCarrots[i].pos[1]) {
 			  //console.log("its a match");
@@ -613,7 +613,7 @@ Game.World.prototype = {
 		//console.log("Eaten Carrots Before: "+ this.eatenCarrots.length);
 		this.eatenCarrots.splice(0,0,new Game.deadCarrot([Math.floor((carr.base_x - 5)/this.tile_set.tile_size) , Math.floor((carr.base_y + 5)/this.tile_set.tile_size)], this.zone_id));
 		//console.log("Eaten Carrots After: "+ this.eatenCarrots.length);
-		console.log(`Carr's pos is ${carr.base_x}, ${carr.base_y}`);
+		//console.log(`Carr's pos is ${carr.base_x}, ${carr.base_y}`);
         this.carrot_count ++;
       }
 
