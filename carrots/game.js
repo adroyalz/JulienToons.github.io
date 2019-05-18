@@ -609,7 +609,7 @@ Game.World.prototype = {
 		
 	    let carr = this.carrots[this.carrots.indexOf(carrot)];
 		let tempCarr = new Game.deadCarrot([Math.floor((carr.base_x - 5)/this.tile_set.tile_size) , Math.floor((carr.base_y + 5)/this.tile_set.tile_size)], this.zone_id);
-		//this.eatenCarrots.splice(0,0,tempCarr);
+		this.eatenCarrots.push(tempCarr);
 
 		this.carrots.splice(this.carrots.indexOf(carrot), 1);
 		//console.log("Apparent Carrots After: "+ this.carrots.length);
