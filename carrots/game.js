@@ -474,7 +474,7 @@ Game.World = function(friction = 0.85, gravity = 2) {
   this.carrots      = [];// the array of carrots in this zone;
   this.carrot_count = 0;// the number of carrots you have.
   
- // this.eatenCarrots = []; //*************************************** CARROT EATEN UPDATE ***************************************
+  this.eatenCarrots = []; //*************************************** CARROT EATEN UPDATE ***************************************
 
   this.doors        = [];
   this.door         = undefined;
@@ -517,7 +517,7 @@ Game.World.prototype = {
   },
 
   setup:function(zone) {
-	console.log("v2.11/nUpdate: carrot eaten debug");
+	console.log("v2.2 Update: eaten carrots counter complete!");
     this.carrots            = new Array();
     this.doors              = new Array();
     this.grass              = new Array();
@@ -531,20 +531,23 @@ Game.World.prototype = {
       let carrot = zone.carrots[index];
 	  //                      *************************************** CARROT EATEN UPDATE ***************************************
 
-/*
+
 	  let fresh = true;
 	  for(let i = 0; i< this.eatenCarrots.length; i++){
-		  console.log("\n" + idex +"." + i + "th carrot refrence:/nThe zone is " + this.zone_id + " and the carrot is " + this.eatenCarrots[i].zoneID);
-		  console.log("The pos is "+ carrot + " and the eaten is " + this.eatenCarrots[i].pos);
-		  if(this.zone_id == this.eatenCarrots[i].zoneID && carrot == this.eatenCarrots[i].pos) {
-			  console.log("its a match");
+		  //console.log("\n" + index +"." + i + "th carrot refrence:/nThe zone is " + this.zone_id + " and the carrot is " + this.eatenCarrots[i].zoneID);
+		  //console.log("The pos is "+ carrot + " and the eaten is " + this.eatenCarrots[i].pos);
+		  //console.log("relative ids: "+ this.zone_id +"..."+this.eatenCarrots[i].zoneID);
+		 // console.log("pos is "+(carrot[0] == this.eatenCarrots[i].pos[0] && carrot[1] == this.eatenCarrots[i].pos[1]));
+		  //console.log("id is " + (this.zone_id == this.eatenCarrots[i].zoneID));
+		  if(this.zone_id == this.eatenCarrots[i].zoneID && carrot[0] == this.eatenCarrots[i].pos[0] && carrot[1] == this.eatenCarrots[i].pos[1]) {
+			  //console.log("its a match");
 			  fresh = false;
 			  break;
 		  }
 	  }
-		  console.log("Fresh is "+fresh);
+	  //console.log("Fresh is "+fresh);
 		  
-	  if(fresh) */this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
+	  if(fresh) this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
 
     }
 
@@ -602,14 +605,15 @@ Game.World.prototype = {
 		console.log("carrot eaten");
 		// why is carrot not defined????????????????????????????????????????????????????????????????????????????????????????????????????????
 		//console.log(`Apparent Carrots Before: ${this.carrots.length}`); 
-	    //let carr = Array.from( 
-		this.carrots.splice(this.carrots.indexOf(carrot), 1);  //);
-		//console.log("Apparent Carrots After: "+ carrots.length);
-		//console.log("Carr is " + carr);
-		//console.log("Eaten Carrots Before: "+ eatenCarrots.length);
-		//this.eatenCarrots.splice(0,0,new Game.deadCarrot([(carr.base_x - 5)/this.tile_set.tile_size , (carr.base_y + 5)/this.tile_set.tile_size], this.zone_id));
-		//console.log("Eaten Carrots After: "+ eatenCarrots.length);
-
+		//console.log(`carr x would be ${this.carrots[this.carrots.indexOf(carrot)].base_x}`);
+		
+	    let carr = Object.assign({}, this.carrots[this.carrots.indexOf(carrot)]);
+		this.carrots.splice(this.carrots.indexOf(carrot), 1);
+		//console.log("Apparent Carrots After: "+ this.carrots.length);
+		//console.log("Eaten Carrots Before: "+ this.eatenCarrots.length);
+		this.eatenCarrots.splice(0,0,new Game.deadCarrot([Math.floor((carr.base_x - 5)/this.tile_set.tile_size) , Math.floor((carr.base_y + 5)/this.tile_set.tile_size)], this.zone_id));
+		//console.log("Eaten Carrots After: "+ this.eatenCarrots.length);
+		console.log(`Carr's pos is ${carr.base_x}, ${carr.base_y}`);
         this.carrot_count ++;
       }
 
@@ -640,10 +644,10 @@ Game.World.prototype = {
   }
 };
 //                      *************************************** CARROT EATEN UPDATE ***************************************
-/*
+
 Game.deadCarrot = function(position, z_id){
 	this.zoneID = z_id;
 	this.pos = position;
 };  
-// Game.deadCarrot.prototype = {};*/
+// Game.deadCarrot.prototype = {};
 

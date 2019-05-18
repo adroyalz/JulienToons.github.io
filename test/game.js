@@ -517,7 +517,7 @@ Game.World.prototype = {
   },
 
   setup:function(zone) {
-	console.log("v2.1226/nUpdate: -");
+	console.log("v2.2 Update: eaten carrots counter complete!");
     this.carrots            = new Array();
     this.doors              = new Array();
     this.grass              = new Array();
@@ -537,15 +537,15 @@ Game.World.prototype = {
 		  //console.log("\n" + index +"." + i + "th carrot refrence:/nThe zone is " + this.zone_id + " and the carrot is " + this.eatenCarrots[i].zoneID);
 		  //console.log("The pos is "+ carrot + " and the eaten is " + this.eatenCarrots[i].pos);
 		  //console.log("relative ids: "+ this.zone_id +"..."+this.eatenCarrots[i].zoneID);
-		  console.log("pos is "+(carrot[0] == this.eatenCarrots[i].pos[0] && carrot[1] == this.eatenCarrots[i].pos[1]));
+		 // console.log("pos is "+(carrot[0] == this.eatenCarrots[i].pos[0] && carrot[1] == this.eatenCarrots[i].pos[1]));
 		  //console.log("id is " + (this.zone_id == this.eatenCarrots[i].zoneID));
 		  if(this.zone_id == this.eatenCarrots[i].zoneID && carrot[0] == this.eatenCarrots[i].pos[0] && carrot[1] == this.eatenCarrots[i].pos[1]) {
-			  console.log("its a match");
+			  //console.log("its a match");
 			  fresh = false;
 			  break;
 		  }
 	  }
-	  console.log("Fresh is "+fresh);
+	  //console.log("Fresh is "+fresh);
 		  
 	  if(fresh) this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
 
