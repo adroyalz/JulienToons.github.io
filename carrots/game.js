@@ -547,7 +547,7 @@ Game.World.prototype = {
 	  }
 	  // console.log("Fresh is "+fresh);
 		  
-	  if(fresh) this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
+	  if(fresh) this.carrots.push(/*[index]=*/ new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2));
 
     }
 
