@@ -50,6 +50,7 @@ window.addEventListener("load", function(event) {
       image.src = url;
 
     },
+	
 
   };
 
@@ -115,7 +116,11 @@ window.addEventListener("load", function(event) {
       grass.y + frame.offset_y, frame.width, frame.height);
 
     }
-
+	
+	if (win != true && game.world.carrot_count >= 25){
+		win = true;
+		alert("You Win!!!");
+	}	
     p.innerHTML = "Carrots: " + game.world.carrot_count;
 
     display.render();
@@ -123,11 +128,11 @@ window.addEventListener("load", function(event) {
   };
 
   var update = function() {
-
+  
     if (controller.left.active ) { game.world.player.moveLeft ();                               }
     if (controller.right.active) { game.world.player.moveRight();                               }
     if (controller.up.active   ) { game.world.player.jump();      controller.up.active = false; }
-
+	
     game.update();
 
     if (game.world.door) {
@@ -157,6 +162,7 @@ window.addEventListener("load", function(event) {
   var display        = new Display(document.querySelector("canvas"));
   var game           = new Game();
   var engine         = new Engine(1000/30, render, update);
+  var win            = false;
 
   var p              = document.createElement("p");
   p.setAttribute("style", "color:#c07000; font-size:2.0em; position:fixed;");
@@ -186,6 +192,8 @@ window.addEventListener("load", function(event) {
 
   });
 
+  alert("This is my javascript game based off of a youtube tutorial.\n\nGoal: Collect all 25 carrots");
+  
   window.addEventListener("keydown", keyDownUp);
   window.addEventListener("keyup"  , keyDownUp);
   window.addEventListener("resize" , resize);
