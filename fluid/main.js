@@ -3,82 +3,43 @@ window.addEventListener("load", function(event) {
 
   "use strict";
 
-  //// CONSTANTS ////
-
-  const ZONE_PREFIX = "levels/zone";
-  const ZONE_SUFFIX = ".json";
-
-      /////////////////
-    //// CLASSES ////
-  /////////////////
-
   const AssetsManager = function() {
 
-    this.tile_set_image = undefined;
+    this.img = undefined;
 
   };
 
   AssetsManager.prototype = {
-
     constructor: Game.AssetsManager,
-
-    requestJSON:function(url, callback) {
-
-      let request = new XMLHttpRequest();
-
-      request.addEventListener("load", function(event) {
-
-        callback(JSON.parse(this.responseText));
-
-      }, { once:true });
-
-      request.open("GET", url);
-      request.send();
-
-    },
-
     requestImage:function(url, callback) {
-
       let image = new Image();
-
       image.addEventListener("load", function(event) {
-
         callback(image);
-
       }, { once:true });
-
       image.src = url;
-
     },
-	
-
   };
 
-      ///////////////////
-    //// FUNCTIONS ////
-  ///////////////////
 
   var keyDownUp = function(event) {
-
     controller.keyDownUp(event.type, event.keyCode);
-
   };
 
   var resize = function(event) {
 
     display.resize(document.documentElement.clientWidth, document.documentElement.clientHeight, game.world.height / game.world.width);
     display.render();
-
+/*  Text
     var rectangle = display.context.canvas.getBoundingClientRect();
 
     p.style.left = rectangle.left + "px";
     p.style.top  = rectangle.top + "px";
     p.style.fontSize = game.world.tile_set.tile_size * rectangle.height / game.world.height + "px";
-
+*/
   };
 
   var render = function() {
-
+/*   NEED 2 ADD RENDERING //************************************************************************************!!!!!!!!!
     var frame = undefined;
 
     display.drawMap   (assets_manager.tile_set_image,
@@ -120,79 +81,49 @@ window.addEventListener("load", function(event) {
     p.innerHTML = "Carrots: " + game.world.carrot_count;
 
     display.render();
-
+*/
   };
 
   var update = function() {
-    if (win != true && game.world.carrot_count >= 25){
-		win = true;
-		alert("You Win!!!\nI would put in the winner file if I had more time ;P");
-		
-		
-	}	
-	
+/*  //  Temorary Debug Controls 
     if (controller.left.active ) { game.world.player.moveLeft ();                               }
     if (controller.right.active) { game.world.player.moveRight();                               }
     if (controller.up.active   ) { game.world.player.jump();      controller.up.active = false; }
-	
+	*/
     game.update();
-
-    if (game.world.door) {
-
-      engine.stop();
-
-      assets_manager.requestJSON(ZONE_PREFIX + game.world.door.destination_zone + ZONE_SUFFIX, (zone) => {
-
-        game.world.setup(zone);
-
-        engine.start();
-
-      });
-
-      return;
-
+    return;
     }
-
   };
-
-      /////////////////
-    //// OBJECTS ////
-  /////////////////
 
   var assets_manager = new AssetsManager();
   var controller     = new Controller();
   var display        = new Display(document.querySelector("canvas"));
   var game           = new Game();
   var engine         = new Engine(1000/30, render, update);
-  var win            = false;
 
+/*  Text
   var p              = document.createElement("p");
   p.setAttribute("style", "color:#c07000; font-size:2.0em; position:fixed;");
   p.innerHTML = "Carrots: 0";
   document.body.appendChild(p);
-
-      ////////////////////
-    //// INITIALIZE ////
-  ////////////////////
+*/
 
   display.buffer.canvas.height = game.world.height;
   display.buffer.canvas.width  = game.world.width;
-  display.buffer.imageSmoothingEnabled = false;
+  display.buffer.imageSmoothingEnabled = false; //  sure??  ************************************************************************************!!!!!!!!!
 
-  assets_manager.requestJSON(ZONE_PREFIX + game.world.zone_id + ZONE_SUFFIX, (zone) => {
+  // assets_manager.requestJSON(ZONE_PREFIX + game.world.zone_id + ZONE_SUFFIX, (zone) => { stuff});
 
     game.world.setup(zone);
 
-    assets_manager.requestImage("rabbit-trap.png", (image) => {
+//  CHANGE IMG and textures   and create geometric imgs like spheres, etc.  //************************************************************************************!!!!!!!!!
+    assets_manager.img("rabbit-trap.png", (image) => {
 
-      assets_manager.tile_set_image = image;
+      assets_manager.img = image;
 
       resize();
       engine.start();
-
     });
-
-  });
 
   alert("This is my javascript game based off of a youtube tutorial.\n\nGoal: Collect all 25 carrots");
   
