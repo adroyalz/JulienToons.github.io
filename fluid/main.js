@@ -39,6 +39,9 @@ window.addEventListener("load", function(event) {
   };
 
   var render = function() {
+	 display.fill("rgba(180,196,211,0.25)");
+	 display.drawPoint();//game.world.point[0],game.world.point[1]);
+	 
 /*   NEED 2 ADD RENDERING //************************************************************************************!!!!!!!!!
     var frame = undefined;
 
@@ -79,9 +82,9 @@ window.addEventListener("load", function(event) {
     }
 	
     p.innerHTML = "Carrots: " + game.world.carrot_count;
-
-    display.render();
 */
+    display.render();
+
   };
 
   var update = function() {
@@ -92,7 +95,7 @@ window.addEventListener("load", function(event) {
 	*/
     game.update();
     return;
-    }
+    
   };
 
   var assets_manager = new AssetsManager();
@@ -114,18 +117,17 @@ window.addEventListener("load", function(event) {
 
   // assets_manager.requestJSON(ZONE_PREFIX + game.world.zone_id + ZONE_SUFFIX, (zone) => { stuff});
 
-    game.world.setup(zone);
+    game.world.setup();
 
 //  CHANGE IMG and textures   and create geometric imgs like spheres, etc.  //************************************************************************************!!!!!!!!!
-    assets_manager.img("rabbit-trap.png", (image) => {
+    /*assets_manager.img("rabbit-trap.png", (image) => {
 
       assets_manager.img = image;
-
+*/
       resize();
       engine.start();
-    });
+ // });
 
-  alert("This is my javascript game based off of a youtube tutorial.\n\nGoal: Collect all 25 carrots");
   
   window.addEventListener("keydown", keyDownUp);
   window.addEventListener("keyup"  , keyDownUp);

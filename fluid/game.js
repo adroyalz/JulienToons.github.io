@@ -1,77 +1,14 @@
 // NEED 2 CHANGE ALOT   //************************************************************************************!!!!!!!!!
 const Game = function() {
-
   this.world    = new Game.World();
-
   this.update   = function() {
-
     this.world.update();
   };
-  
-
 };
 Game.prototype = { constructor : Game };
-
-// Made the default animation type "loop":
-Game.Animator = function(frame_set, delay, mode = "loop") {
-
- this.count       = 0;
- this.delay       = (delay >= 1) ? delay : 1;
- this.frame_set   = frame_set;
- this.frame_index = 0;
- this.frame_value = frame_set[0];
- this.mode        = mode;
-
-};
-Game.Animator.prototype = {
-
- constructor:Game.Animator,
-
- animate:function() {
-
-   switch(this.mode) {
-
-     case "loop" : this.loop(); break;
-     case "pause":              break;
-
-   }
-
- },
-
- changeFrameSet(frame_set, mode, delay = 10, frame_index = 0) {
-
-   if (this.frame_set === frame_set) { return; }
-
-   this.count       = 0;
-   this.delay       = delay;
-   this.frame_set   = frame_set;
-   this.frame_index = frame_index;
-   this.frame_value = frame_set[frame_index];
-   this.mode        = mode;
-
- },
-
- loop:function() {
-
-   this.count ++;
-
-   while(this.count > this.delay) {
-
-     this.count -= this.delay;
-
-     this.frame_index = (this.frame_index < this.frame_set.length - 1) ? this.frame_index + 1 : 0;
-
-     this.frame_value = this.frame_set[this.frame_index];
-
-   }
-
- }
-
-};
-
+/*  //collider
 Game.Collider = function() {
 
-  /* I changed this so all the checks happen in y first order. */
   this.collide = function(value, object, tile_x, tile_y, tile_size) {
 
     switch(value) {
@@ -168,20 +105,9 @@ Game.Collider.prototype = {
   }
 
  };
+*/
 
-// Added default values of 0 for offset_x and offset_y
-Game.Frame = function(x, y, width, height, offset_x = 0, offset_y = 0) {
-
-  this.x        = x;
-  this.y        = y;
-  this.width    = width;
-  this.height   = height;
-  this.offset_x = offset_x;
-  this.offset_y = offset_y;
-
-};
-Game.Frame.prototype = { constructor: Game.Frame };
-
+/*  //turn to object, liquid, and solid interfaces
 Game.Object = function(x, y, width, height) {
 
  this.height = height;
@@ -194,7 +120,6 @@ Game.Object.prototype = {
   
   constructor:Game.Object,
   
-  /* Now does rectangular collision detection. */
   collideObject:function(object) {
 
     if (this.getRight()  < object.getLeft()  ||
@@ -206,7 +131,6 @@ Game.Object.prototype = {
 
   },
 
-  /* Does rectangular collision detection with the center of the object. */
   collideObjectCenter:function(object) {
 
     let center_x = object.getCenterX();
@@ -246,7 +170,6 @@ Game.MovingObject = function(x, y, width, height, velocity_max = 15) {
   this.y_old        = y;
 
 };
-/* I added setCenterX, setCenterY, getCenterX, and getCenterY */
 Game.MovingObject.prototype = {
 
   getOldBottom : function()  { return this.y_old + this.height;       },
@@ -266,10 +189,9 @@ Game.MovingObject.prototype = {
 Object.assign(Game.MovingObject.prototype, Game.Object.prototype);
 Game.MovingObject.prototype.constructor = Game.MovingObject;
 
-
+*/
 	
-	
-/* The carrot class extends Game.Object and Game.Animation. */
+	/*// obj examples
 Game.Carrot = function(x, y) {
 
   Game.Object.call(this, x, y, 7, 14);
@@ -277,9 +199,6 @@ Game.Carrot = function(x, y) {
 
   this.frame_index = Math.floor(Math.random() * 2);
 
-  /* base_x and base_y are the point around which the carrot revolves. position_x
-  and y are used to track the vector facing away from the base point to give the carrot
-  the floating effect. */
   this.base_x     = x;
   this.base_y     = y;
   this.position_x = Math.random() * Math.PI * 2;
@@ -365,7 +284,6 @@ Game.Player.prototype = {
 
   jump: function() {
 
-    /* Made it so you can only jump if you aren't falling faster than 10px per frame. */
     if (!this.jumping && this.velocity_y < 10) {
 
       this.jumping     = true;
@@ -420,7 +338,6 @@ Game.Player.prototype = {
     this.velocity_y += gravity;
     this.velocity_x *= friction;
 
-    /* Made it so that velocity cannot exceed velocity_max */
     if (Math.abs(this.velocity_x) > this.velocity_max)
     this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
 
@@ -436,7 +353,8 @@ Game.Player.prototype = {
 Object.assign(Game.Player.prototype, Game.MovingObject.prototype);
 Object.assign(Game.Player.prototype, Game.Animator.prototype);
 Game.Player.prototype.constructor = Game.Player;
-
+*/
+/* // tileset
 Game.TileSet = function(columns, tile_size) {
 
   this.columns    = columns;
@@ -456,9 +374,13 @@ Game.TileSet = function(columns, tile_size) {
 
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
-
-Game.World = function(friction = 0.85, gravity = 2) {
-
+*/
+Game.World = function(point = [50,50], gravity = 2) {  //friction = 0.85
+  this.gravity      = gravity;
+  this.height = 144;
+  this.width = 230;
+  //this.point = [];
+/* // example vars
   this.collider     = new Game.Collider();
 
   this.friction     = friction;
@@ -484,15 +406,13 @@ Game.World = function(friction = 0.85, gravity = 2) {
   this.width        = this.tile_set.tile_size * this.columns;
 
   //this.win          = false;
+  */
 };
 Game.World.prototype = {
 
   constructor: Game.World,
-
+/* collide obj function
   collideObject:function(object) {
-
-    /* I got rid of the world boundary collision. Now it's up to the tiles to keep
-    the player from falling out of the world. */
 
     var bottom, left, right, top, value;
 
@@ -517,145 +437,12 @@ Game.World.prototype = {
     this.collider.collide(value, object, right * this.tile_set.tile_size, bottom * this.tile_set.tile_size, this.tile_set.tile_size);
 
   },
-
-  setup:function(zone) {
-	console.log("v2.1221/nUpdate: -?");
-    this.carrots            = new Array();
-    this.doors              = new Array();
-    this.grass              = new Array();
-    this.collision_map      = zone.collision_map;
-    this.graphical_map      = zone.graphical_map;
-    this.columns            = zone.columns;
-    this.rows               = zone.rows;
-    this.zone_id            = zone.id;
-
-    for (let index = zone.carrots.length - 1; index > -1; -- index) {
-      let carrot = zone.carrots[index];
-	  //                      *************************************** CARROT EATEN UPDATE ***************************************
-
-
-	  let fresh = true;
-	  for(let i = 0; i< this.eatenCarrots.length; i++){
-		  // console.log("\n" + index +"." + i + "th carrot refrence:/nThe zone is " + this.zone_id + " and the carrot is " + this.eatenCarrots[i].zoneID);
-		  // console.log("The pos is "+ carrot + " and the eaten is " + this.eatenCarrots[i].pos);
-		  // console.log("relative ids: "+ this.zone_id +"..."+this.eatenCarrots[i].zoneID);
-		  // console.log("pos is "+(carrot == this.eatenCarrots[i].pos));
-		  // console.log("id is " + (this.zone_id == this.eatenCarrots[i].zoneID));
-		  if(this.zone_id == this.eatenCarrots[i].zoneID && carrot[0] == this.eatenCarrots[i].pos[0] && carrot[1] == this.eatenCarrots[i].pos[1]) {
-			  // console.log("its a match");
-			  fresh = false;
-			  break;
-		  }
-	  }
-	  // console.log("Fresh is "+fresh);
-		  
-	  if(fresh) this.carrots.push(/*[index]=*/ new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2));
-
-    }
-
-    for (let index = zone.doors.length - 1; index > -1; -- index) {
-
-      let door = zone.doors[index];
-      this.doors[index] = new Game.Door(door);
-
-    }
-
-    for (let index = zone.grass.length - 1; index > -1; -- index) {
-
-      let grass = zone.grass[index];
-      this.grass[index] = new Game.Grass(grass[0] * this.tile_set.tile_size, grass[1] * this.tile_set.tile_size + 12);
-
-    }
-
-    if (this.door) {
-
-      if (this.door.destination_x != -1) {
-
-        this.player.setCenterX   (this.door.destination_x);
-        this.player.setOldCenterX(this.door.destination_x);// It's important to reset the old position as well.
-
-      }
-
-      if (this.door.destination_y != -1) {
-
-        this.player.setCenterY   (this.door.destination_y);
-        this.player.setOldCenterY(this.door.destination_y);
-
-      }
-
-      this.door = undefined;// Make sure to reset this.door so we don't trigger a zone load.
-
-    }
-
+*/
+  setup:function() {
+	console.log("Version Alpha 1.1a");
+    this.point = new Array();
   },
 
-  update:function() {
-	
-	// if(!this.win && this.carrot_count=>25){
-		
-	// }
-
-    this.player.updatePosition(this.gravity, this.friction);
-
-    this.collideObject(this.player);
-
-    for (let index = this.carrots.length - 1; index > -1; -- index) {
-
-      let carrot = this.carrots[index];
-
-      carrot.updatePosition();
-      carrot.animate();
-
-      if (carrot.collideObject(this.player)) {
-		  //                      *************************************** CARROT EATEN UPDATE ***************************************
-		console.log("carrot eaten");
-		// why is carrot not defined????????????????????????????????????????????????????????????????????????????????????????????????????????
-		//console.log(`Apparent Carrots Before: ${this.carrots.length}`); 
-		//console.log(`carr x would be ${this.carrots[this.carrots.indexOf(carrot)].base_x}`);
-		
-	    let carr = Object.assign( this.carrots[this.carrots.indexOf(carrot)]);
-		let tempCarr = new Game.deadCarrot([Math.floor((carr.base_x - 5)/this.tile_set.tile_size) , Math.floor((carr.base_y + 5)/this.tile_set.tile_size)], this.zone_id);
-		this.eatenCarrots.push(tempCarr);
-
-		this.carrots.splice(this.carrots.indexOf(carrot), 1);
-		//console.log("Apparent Carrots After: "+ this.carrots.length);
-		//console.log("Eaten Carrots Before: "+ this.eatenCarrots.length);
-		//console.log("Eaten Carrots After: "+ this.eatenCarrots.length);
-		//console.log(`Carr's pos is ${carr.base_x}, ${carr.base_y}`);
-        this.carrot_count ++;
-      }
-
-    }
-
-    for(let index = this.doors.length - 1; index > -1; -- index) {
-
-      let door = this.doors[index];
-
-      if (door.collideObjectCenter(this.player)) {
-
-        this.door = door;
-
-      };
-
-    }
-
-    for (let index = this.grass.length - 1; index > -1; -- index) {
-
-      let grass = this.grass[index];
-
-      grass.animate();
-
-    }
-
-    this.player.updateAnimation();
-
-  }
+  update:function() {}
 };
-//                      *************************************** CARROT EATEN UPDATE ***************************************
-
-Game.deadCarrot = function(position, z_id){
-	this.zoneID = z_id;
-	this.pos = position;
-};  
-// Game.deadCarrot.prototype = {};
 

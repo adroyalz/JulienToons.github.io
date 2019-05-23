@@ -6,6 +6,7 @@ const Display = function(canvas) {
   this.context = canvas.getContext("2d");
 
   /*  NEED 2 ADD Draw Options  //************************************************************************************!!!!!!!!!
+  //USEFUL!!! -->>   https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
   this.drawMap = function(image, image_columns, map, map_columns, tile_size) {
 
     for (let index = map.length - 1; index > -1; -- index) {
@@ -21,13 +22,32 @@ const Display = function(canvas) {
     }
 
   };
+*/
 
+  this.drawRectangle = function(x, y, width, height, color) {
+
+    this.buffer.fillStyle = color;
+    this.buffer.fillRect(Math.floor(x), Math.floor(y), width, height);
+
+  };
+
+  this.fill = function(color = "rgba(180,196,211,0.25)") {
+
+    this.buffer.fillStyle = color;
+    this.buffer.fillRect(0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
+
+  };
+
+  this.drawPoint = function(x=5,y=15, r=1){
+	  this.buffer.fillStyle = "rgba(0,0,211,0.25)";
+      this.buffer.fillRect(x,y,r,r);
+  }
   this.drawObject = function(image, source_x, source_y, destination_x, destination_y, width, height) {
 
     this.buffer.drawImage(image, source_x, source_y, width, height, Math.round(destination_x), Math.round(destination_y), width, height);
 
   };
-*/
+
   this.resize = function(width, height, height_width_ratio) {
 
     if (height / width > height_width_ratio) {
@@ -45,13 +65,12 @@ const Display = function(canvas) {
     this.context.imageSmoothingEnabled = false;
 
   };
-
+  
 };
 
 Display.prototype = {
 
   constructor : Display,
-
-  render:function() { this.context.drawImage(this.buffer.canvas, 0, 0, this.buffer.canvas.width, this.buffer.canvas.height, 0, 0, this.context.canvas.width, this.context.canvas.height); },
+  render:function() { this.context.drawImage(this.buffer.canvas, 0, 0, this.buffer.canvas.width, this.buffer.canvas.height, 0, 0, this.context.canvas.width, this.context.canvas.height); }
 
 };
